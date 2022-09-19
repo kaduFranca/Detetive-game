@@ -73,9 +73,6 @@ class Game {
         let dice = Math.floor(Math.random() * (max - min) + min);
         return dice;
     }
-    falarOi() {
-        console.log("Oi");
-    }
     peaceJump(idPeace) {
         let id = idPeace - 1;
         let arrayStrings = this.allPeaces[id].beforePosition.split("-");
