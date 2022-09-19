@@ -1,0 +1,74 @@
+* {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+body {
+  background-image: url(./img/espaço.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+}
+
+.lista {
+  padding: 0;
+  display: flex;
+  justify-content: right;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+li {
+  height: 24px;
+}
+ul {
+  padding: 0;
+}
+
+.suspect-file {
+  background-color: white;
+  width: 17rem;
+  height: 50rem;
+  position: relative;
+  display: flex;
+  top: 7.5rem;
+  padding-top: 2rem;
+}
+
+.file {
+  width: 100%;
+  height: 2rem;
+  border-bottom: 2.5px dashed black;
+}
+.checkbox {
+  display: flex;
+  float: right;
+  gap: 5rem;
+}
+
+.checkmark {
+  width: 25px;
+  height: 25px;
+}
+
+input[type="checkbox"] {
+  appearance: ;
+  margin: 0;
+  font: inherit;
+  width: 1.35em;
+  height: 1.35em;
+  border: 0.15em solid green;
+  border-radius: 0.15em;
+}
+
+li img:hover {
+  filter: brightness(120%);
+}
