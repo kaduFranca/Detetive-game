@@ -1,7 +1,7 @@
 class Game {
   limitMapX: number = 51;
   limitMapY: number = 33;
-  allPeaces: Array<any> = [];
+  allPeaces: Array<peace> = [];
   numberPlayers: number;
   constructor(numberPlayers: number) {
     this.numberPlayers = numberPlayers;
@@ -100,7 +100,7 @@ class Game {
     turnPlay: string,
     beforePosition: string
   ) {
-    let peace: object = {
+    let peace: peace = {
       id: id++,
       color: color,
       image: image,
@@ -213,4 +213,11 @@ game.onInit();
 game.setUpPosition();
 game.peaceJump(1)
 
-
+interface peace{
+  id: number;
+  color: string;
+  image: string;
+  initialPosition: string;
+  turnPlay: string;
+  beforePosition: string;
+}
