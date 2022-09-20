@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 class Game {
     constructor(numberPlayers) {
         this.limitMapX = 51;
@@ -22,8 +23,8 @@ class Game {
             let ul = document.createElement("ul");
             for (let j = 0; j < this.limitMapY; j++) {
                 let li = document.createElement("li");
-                li.innerHTML = `<img src="../img/azulejo.png">`;
                 li.setAttribute("id", `id-${i}-${j}`);
+                li.innerHTML = `<img src="../img/azulejo.png">`;
                 ul.appendChild(li);
                 const openUl = document.querySelector("#board");
                 openUl.appendChild(ul);
@@ -84,25 +85,26 @@ class Game {
         document.addEventListener("keyup", function (e) {
             if (range > 0) {
                 if (e.key === "ArrowDown") {
-                    range -= 1;
-                    y += 1;
-                    game.walkPeace(id, x, y);
+                    if (y < game.limitMapY - 1) {
+                        y += 1;
+                    }
                 }
                 else if (e.key === "ArrowUp") {
-                    range -= 1;
-                    y -= 1;
-                    game.walkPeace(id, x, y);
+                    if (y > 0) {
+                        y -= 1;
+                    }
                 }
                 else if (e.key === "ArrowLeft") {
-                    range -= 1;
-                    x -= 1;
-                    game.walkPeace(id, x, y);
+                    if (x > 0) {
+                        x -= 1;
+                    }
                 }
                 else if (e.key === "ArrowRight") {
-                    range -= 1;
-                    x += 1;
-                    game.walkPeace(id, x, y);
+                    if (x < game.limitMapX - 1) {
+                        x += 1;
+                    }
                 }
+                game.walkPeace(id, x, y);
             }
         });
     }
@@ -116,16 +118,16 @@ class Game {
             this.movePeace(id, coordenada);
         }
         else {
-            console.log("código errado");
+            this.movePeace(id, this.allPeaces[id].beforePosition);
         }
     }
 }
-const game = new Game(8);
-game.onInit();
-game.setUpPosition();
-game.peaceJump(1);
 addEventListener("keydown", function (e) {
     if (["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(e.code) > -1) {
         e.preventDefault();
     }
 }, false);
+const game = new Game(8);
+game.onInit();
+game.setUpPosition();
+game.peaceJump(1);
