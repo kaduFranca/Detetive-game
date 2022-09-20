@@ -1,9 +1,7 @@
-import { peace } from "./model/peaceModel";
-
 class Game {
   limitMapX: number = 51;
   limitMapY: number = 33;
-  allPeaces: Array<peace> = [];
+  allPeaces: Array<any> = [];
   numberPlayers: number;
   constructor(numberPlayers: number) {
     this.numberPlayers = numberPlayers;
@@ -85,6 +83,7 @@ class Game {
         let li = document.createElement("li");
         li.setAttribute("id", `id-${i}-${j}`);
         li.innerHTML = `<img src="../img/azulejo.png">`;
+        
 
         ul.appendChild(li);
         const openUl = document.querySelector("#board") as HTMLElement;
@@ -101,7 +100,7 @@ class Game {
     turnPlay: string,
     beforePosition: string
   ) {
-    let peace: peace = {
+    let peace: object = {
       id: id++,
       color: color,
       image: image,
@@ -127,9 +126,7 @@ class Game {
     let beforePosition = this.allPeaces[id].beforePosition;
 
     if (beforePosition !== "") {
-      let moveBefore = document.querySelector(
-        `#${beforePosition}`
-      ) as HTMLElement;
+      let moveBefore = document.querySelector(`#${beforePosition}`) as HTMLElement;
       moveBefore.innerHTML = `<img src="../img/azulejo.png">`;
     }
 
@@ -137,9 +134,7 @@ class Game {
       move.innerHTML = this.allPeaces[id].image;
       console.log("foi");
     } else {
-      let moveBefore = document.querySelector(
-        `#${beforePosition}`
-      ) as HTMLElement;
+      let moveBefore = document.querySelector(`#${beforePosition}`) as HTMLElement;
       moveBefore.innerHTML = this.allPeaces[id].image;
       console.log("tem gente");
     }
@@ -161,31 +156,38 @@ class Game {
     console.log(arrayStrings);
     let x = Number(arrayStrings[1]);
     let y = Number(arrayStrings[2]);
-    let range = 1000;
+    let range = 1000
     console.log(range);
 
     document.addEventListener("keyup", function (e) {
       if (range > 0) {
         if (e.key === "ArrowDown") {
-          if (y < game.limitMapY - 1) {
-            y += 1;
+          if (y < game.limitMapY-1) {
+            y += 1
           }
+          
         } else if (e.key === "ArrowUp") {
           if (y > 0) {
-            y -= 1;
+            y -= 1
           }
+          
         } else if (e.key === "ArrowLeft") {
           if (x > 0) {
-            x -= 1;
+            x -= 1
           }
+          
         } else if (e.key === "ArrowRight") {
-          if (x < game.limitMapX - 1) {
-            x += 1;
+          if (x < game.limitMapX-1) {
+            x += 1
           }
+          
         }
-        game.walkPeace(id, x, y);
+        game.walkPeace(id,x,y)
       }
+      
     });
+  
+    
   }
 
   walkPeace(id: number, pX: number, pY: number) {
@@ -200,21 +202,15 @@ class Game {
     }
   }
 }
-addEventListener(
-  "keydown",
-  function (e) {
-    if (
-      ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(
-        e.code
-      ) > -1
-    ) {
+addEventListener("keydown", function(e) {
+  if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
       e.preventDefault();
-    }
-  },
-  false
-);
+  }
+}, false);
 
 const game = new Game(8);
 game.onInit();
 game.setUpPosition();
-game.peaceJump(1);
+game.peaceJump(1)
+
+
