@@ -9,70 +9,26 @@ class Game {
 
   onInit() {
     this.createBoard();
-    this.createPeace(
-      0,
-      "blue",
-      `<img src="../img/peao/peao1.png">`,
-      "id-1-10",
-      "",
-      ""
-    );
-    this.createPeace(
-      0,
-      "black",
-      `<img src="../img/peao/peao2.png">`,
-      "id-2-10",
-      "",
-      ""
-    );
-    this.createPeace(
-      0,
-      "purple",
-      `<img src="../img/peao/peao3.png">`,
-      "id-3-10",
-      "",
-      ""
-    );
-    this.createPeace(
-      0,
-      "red",
-      `<img src="../img/peao/peao4.png">`,
-      "id-4-10",
-      "",
-      ""
-    );
-    this.createPeace(
-      0,
-      "pink",
-      `<img src="../img/peao/peao5.png">`,
-      "id-5-10",
-      "",
-      ""
-    );
-    this.createPeace(
-      0,
-      "yellow",
-      `<img src="../img/peao/peao6.png">`,
-      "id-6-10",
-      "",
-      ""
-    );
-    this.createPeace(
-      0,
-      "green",
-      `<img src="../img/peao/peao7.png">`,
-      "id-7-10",
-      "",
-      ""
-    );
-    this.createPeace(
-      0,
-      "orange",
-      `<img src="../img/peao/peao8.png">`,
-      "id-8-10",
-      "",
-      ""
-    );
+    enum Cores {
+      "blue" = 1,
+      "black" = 2,
+      "purple" = 3,
+      "red" = 4,
+      "pink" = 5,
+      "yellow" = 6,
+      "green" = 7,
+      "orange" = 8,
+    }
+    for (let i = 1; i <= 8; i++) {
+      this.createPeace(
+        0,
+        `${Cores[i]}`,
+        `<img src="../img/peao/peao${i}.png">`,
+        `id-${i}-10`,
+        "",
+        ""
+      );
+    }
   }
 
   createBoard() {
@@ -83,7 +39,6 @@ class Game {
         let li = document.createElement("li");
         li.setAttribute("id", `id-${i}-${j}`);
         li.innerHTML = `<img src="../img/azulejo.png">`;
-        
 
         ul.appendChild(li);
         const openUl = document.querySelector("#board") as HTMLElement;
@@ -126,20 +81,23 @@ class Game {
     let beforePosition = this.allPeaces[id].beforePosition;
 
     if (beforePosition !== "") {
-      let moveBefore = document.querySelector(`#${beforePosition}`) as HTMLElement;
+      let moveBefore = document.querySelector(
+        `#${beforePosition}`
+      ) as HTMLElement;
       moveBefore.innerHTML = `<img src="../img/azulejo.png">`;
     }
 
     if (move.innerHTML == `<img src="../img/azulejo.png">`) {
       move.innerHTML = this.allPeaces[id].image;
       console.log("foi");
+      this.allPeaces[id].beforePosition = coordenada;
     } else {
-      let moveBefore = document.querySelector(`#${beforePosition}`) as HTMLElement;
+      let moveBefore = document.querySelector(
+        `#${beforePosition}`
+      ) as HTMLElement;
       moveBefore.innerHTML = this.allPeaces[id].image;
       console.log("tem gente");
     }
-
-    this.allPeaces[id].beforePosition = coordenada;
   }
 
   rollDice() {
@@ -156,38 +114,31 @@ class Game {
     console.log(arrayStrings);
     let x = Number(arrayStrings[1]);
     let y = Number(arrayStrings[2]);
-    let range = 1000
+    let range = 1000;
     console.log(range);
 
     document.addEventListener("keyup", function (e) {
       if (range > 0) {
         if (e.key === "ArrowDown") {
-          if (y < game.limitMapY-1) {
-            y += 1
+          if (y < game.limitMapY - 1) {
+            y += 1;
           }
-          
         } else if (e.key === "ArrowUp") {
           if (y > 0) {
-            y -= 1
+            y -= 1;
           }
-          
         } else if (e.key === "ArrowLeft") {
           if (x > 0) {
-            x -= 1
+            x -= 1;
           }
-          
         } else if (e.key === "ArrowRight") {
-          if (x < game.limitMapX-1) {
-            x += 1
+          if (x < game.limitMapX - 1) {
+            x += 1;
           }
-          
         }
-        game.walkPeace(id,x,y)
+        game.walkPeace(id, x, y);
       }
-      
     });
-  
-    
   }
 
   walkPeace(id: number, pX: number, pY: number) {
@@ -202,18 +153,26 @@ class Game {
     }
   }
 }
-addEventListener("keydown", function(e) {
-  if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
+addEventListener(
+  "keydown",
+  function (e) {
+    if (
+      ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(
+        e.code
+      ) > -1
+    ) {
       e.preventDefault();
-  }
-}, false);
+    }
+  },
+  false
+);
 
 const game = new Game(8);
 game.onInit();
 game.setUpPosition();
-game.peaceJump(1)
+game.peaceJump(1);
 
-interface peace{
+interface peace {
   id: number;
   color: string;
   image: string;

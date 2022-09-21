@@ -8,14 +8,20 @@ class Game {
     }
     onInit() {
         this.createBoard();
-        this.createPeace(0, "blue", `<img src="../img/peao/peao1.png">`, "id-1-10", "", "");
-        this.createPeace(0, "black", `<img src="../img/peao/peao2.png">`, "id-2-10", "", "");
-        this.createPeace(0, "purple", `<img src="../img/peao/peao3.png">`, "id-3-10", "", "");
-        this.createPeace(0, "red", `<img src="../img/peao/peao4.png">`, "id-4-10", "", "");
-        this.createPeace(0, "pink", `<img src="../img/peao/peao5.png">`, "id-5-10", "", "");
-        this.createPeace(0, "yellow", `<img src="../img/peao/peao6.png">`, "id-6-10", "", "");
-        this.createPeace(0, "green", `<img src="../img/peao/peao7.png">`, "id-7-10", "", "");
-        this.createPeace(0, "orange", `<img src="../img/peao/peao8.png">`, "id-8-10", "", "");
+        let Cores;
+        (function (Cores) {
+            Cores[Cores["blue"] = 1] = "blue";
+            Cores[Cores["black"] = 2] = "black";
+            Cores[Cores["purple"] = 3] = "purple";
+            Cores[Cores["red"] = 4] = "red";
+            Cores[Cores["pink"] = 5] = "pink";
+            Cores[Cores["yellow"] = 6] = "yellow";
+            Cores[Cores["green"] = 7] = "green";
+            Cores[Cores["orange"] = 8] = "orange";
+        })(Cores || (Cores = {}));
+        for (let i = 1; i <= 8; i++) {
+            this.createPeace(0, `${Cores[i]}`, `<img src="../img/peao/peao${i}.png">`, `id-${i}-10`, "", "");
+        }
     }
     createBoard() {
         for (let i = 0; i < this.limitMapX; i++) {
@@ -59,13 +65,13 @@ class Game {
         if (move.innerHTML == `<img src="../img/azulejo.png">`) {
             move.innerHTML = this.allPeaces[id].image;
             console.log("foi");
+            this.allPeaces[id].beforePosition = coordenada;
         }
         else {
             let moveBefore = document.querySelector(`#${beforePosition}`);
             moveBefore.innerHTML = this.allPeaces[id].image;
             console.log("tem gente");
         }
-        this.allPeaces[id].beforePosition = coordenada;
     }
     rollDice() {
         let min = Math.ceil(7);
